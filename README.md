@@ -4,6 +4,46 @@
 
 This project aims to enhance the functionality of a single webpage that originally read data from a static file to a more interactive web application. By leveraging the React framework, we've transformed the static webpage into a dynamic and responsive application capable of fetching data from a specified backend.
 
+## Setup Instructions
+
+To set up the frontend application locally, follow these steps:
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/nahidDeveloper/WarickBusinessSchoolClient.git
+   ```
+   2. **Navigate to project directory**:
+   ```bash
+   cd WarickBusinessSchoolClient
+   ```
+   3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+   ## Set Environment Variables:
+
+1. Create a `.env` file in the root directory of the project.
+2. Add the following environment variables to the `.env` file:
+
+    ```dotenv
+    REACT_APP_API_BASE_URL=http://localhost:3000
+    ```
+
+    Replace `http://localhost:3000` with the URL of your backend server.
+
+## Start the Development Server:
+
+To start the development server, run the following command:
+
+```bash
+npm start
+```
+This will start the development server and open the application in your default web browser.
+
+And here's the link to my backend GitHub repository:
+
+[WarickBusinessSchool](https://github.com/nahidDeveloper/WarickBusinessSchool)
 ## Key Changes
 
 ### Transition to React
