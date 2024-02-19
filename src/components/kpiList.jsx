@@ -13,6 +13,7 @@ const[currentPage ,setCurrentPage]= useState(1);
 const[itemsPerPage] = useState(10);
 const[TEAM_NAMES,setTEAM_NAMES]= useState([]);
 const apiUrl = process.env.REACT_APP_API_BASE_URL;
+const [searchTerm, setSearchTerm] = useState('');//Added search functionality
 
 const UNITS = {
     "wacc": "%",
@@ -38,7 +39,7 @@ const fetchTeamNames = async () => {
 useEffect(() => {
     fetchTeamNames();
     fetchdata();
-}, [date, kpi,order]);
+}, [date, kpi,order,searchTerm]);
 
 const fetchdata = async () => {
   let updatedData;
@@ -49,12 +50,18 @@ const fetchdata = async () => {
     // Extracting teamId and value from each entry in the response data
     const extractedData = data.map(entry => ({
       team: entry.team.id,
+      teamName: entry.team.name,
       value: entry.value
     }));
+
+    // Apply search filter if search term is provided
+    const filteredData = searchTerm
+    ? extractedData.filter(entry => entry.teamName.toString().includes(searchTerm))
+    : extractedData;
     if (order) {
-      updatedData = extractedData.sort((a, b) => b.value - a.value);
+      updatedData = filteredData.sort((a, b) => b.value - a.value);
   } else {
-      updatedData = extractedData.sort((a, b) => a.value - b.value);
+      updatedData = filteredData.sort((a, b) => a.value - b.value);
   }
   const rows=updatedData;
   setRankings(rows);
@@ -70,6 +77,10 @@ const indexOfLastItem = currentPage* itemsPerPage;
 const indexOfFirstItem = indexOfLastItem -itemsPerPage
 const currentItems = rankings.slice(indexOfFirstItem,indexOfLastItem)
 
+const handleSearch = (e) => {
+  setSearchTerm(e.target.value);
+};
+
 const paginate =(pageNumber)=>{
     setCurrentPage(pageNumber);
 }
@@ -82,6 +93,7 @@ return (
     <div>
       <h1>Business in Practice - KPI Rankings</h1>
       <div>
+      <input type="text" placeholder="Search team..." value={searchTerm} onChange={handleSearch} />
       <select value={date} onChange={(e) => setDate(e.target.value)}>
                     <option value="2023-06-19">Day 1</option>
                     <option value="2023-06-20">Day 2</option>
