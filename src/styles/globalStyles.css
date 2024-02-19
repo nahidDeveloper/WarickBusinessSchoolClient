@@ -1,0 +1,45 @@
+/* styles.css */
+.business-table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .business-table th, .business-table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .business-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .pagination .page-item {
+    margin: 0 4px;
+  }
+  
+  .pagination .page-link {
+    color: #ffffff;
+    background-color:#4b2e83 ;
+    padding: 8px 12px;
+    text-decoration: none;
+    border: 1px solid #4b2e83;
+    border-radius: 4px;
+    transition:background-colour 0.3s;
+  }
+  
+  .pagination .page-link:hover {
+    background-color: #3d2466;
+  }
+  
+  .active {
+    background-color: white; 
+    color: white; 
+  }
