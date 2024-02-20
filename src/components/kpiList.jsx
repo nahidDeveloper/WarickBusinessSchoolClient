@@ -103,14 +103,14 @@ const sortOrder =()=>{
 
 return (
     <div>
-      <h1>Business in Practice - KPI Rankings</h1>
+      <h1 className="business-header">Business in Practice - KPI Rankings</h1>
       <div>
-      <select value={viewType} onChange={handleViewTypeChange}>
+      <select className="select-input" value={viewType} onChange={handleViewTypeChange}>
           <option value="table">Table View</option>
           <option value="chart">Chart View</option>
         </select>
-      <input type="text" placeholder="Search team..." value={searchTerm} onChange={handleSearch} />
-      <select value={date} onChange={(e) => setDate(e.target.value)}>
+      <input className="search-input" type="text" placeholder="Search team..." value={searchTerm} onChange={handleSearch} />
+      <select className="select-input" value={date} onChange={(e) => setDate(e.target.value)}>
                     <option value="2023-06-19">Day 1</option>
                     <option value="2023-06-20">Day 2</option>
                     <option value="2023-06-21">Day 3</option>
@@ -118,7 +118,7 @@ return (
                     <option value="2023-06-24">Day 5</option>
                     <option value="2023-06-25">Day 6</option>
                 </select>
-                <select value={kpi} onChange={(e) => setKpi(e.target.value)}>
+                <select className="select-input" value={kpi} onChange={(e) => setKpi(e.target.value)}>
                     <option value="scores">Scores</option>
                     <option value="wacc">WACC</option>
                     <option value="factory_utilization">Factory Utilisation</option>
