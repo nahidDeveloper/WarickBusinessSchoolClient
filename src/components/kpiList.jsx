@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import TableView from './TableView';
+import ChartView from './ChartView';
 
 
 const KpiList =()=>{
@@ -10,10 +11,12 @@ const [kpi, setKpi] = useState('scores');
 const [rankings, setRankings] = useState([]);
 const [order,setDescendingOrder]= useState(true);//To set order
 const[currentPage ,setCurrentPage]= useState(1);
-const[itemsPerPage] = useState(10);
+const[itemsPerPage,setItemsPerPage] = useState(10);
 const[TEAM_NAMES,setTEAM_NAMES]= useState([]);
 const apiUrl = process.env.REACT_APP_API_BASE_URL;
 const [searchTerm, setSearchTerm] = useState('');//Added search functionality
+const [viewType, setViewType] = useState('table');//Adding switching Views
+
 
 const UNITS = {
     "wacc": "%",
@@ -77,6 +80,15 @@ const indexOfLastItem = currentPage* itemsPerPage;
 const indexOfFirstItem = indexOfLastItem -itemsPerPage
 const currentItems = rankings.slice(indexOfFirstItem,indexOfLastItem)
 
+const handleViewTypeChange = event => {
+  setViewType(event.target.value);
+  if(event.target.value ='chart'){
+    setItemsPerPage(5)
+  }else{
+    setItemsPerPage(10)
+  }
+};
+
 const handleSearch = (e) => {
   setSearchTerm(e.target.value);
 };
@@ -93,6 +105,10 @@ return (
     <div>
       <h1>Business in Practice - KPI Rankings</h1>
       <div>
+      <select value={viewType} onChange={handleViewTypeChange}>
+          <option value="table">Table View</option>
+          <option value="chart">Chart View</option>
+        </select>
       <input type="text" placeholder="Search team..." value={searchTerm} onChange={handleSearch} />
       <select value={date} onChange={(e) => setDate(e.target.value)}>
                     <option value="2023-06-19">Day 1</option>
@@ -113,6 +129,7 @@ return (
                     <option value="co2_penalty">CO2 Penalty</option>
                 </select>
       </div>
+      {viewType === 'table' ? (
       <TableView
         data={currentItems}
         order={order}
@@ -125,7 +142,13 @@ return (
         currentPage={currentPage}
         setOrder={sortOrder}
       />
-     
+      ) : (
+        <ChartView
+        data={currentItems}
+        kpi={kpi}
+        units={UNITS}
+        />
+      )}
     </div>
   );
 };
